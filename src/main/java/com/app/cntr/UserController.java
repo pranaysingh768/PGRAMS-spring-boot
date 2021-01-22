@@ -79,6 +79,26 @@ public class UserController {
 		
 		return userServiceInmple.findComplaint(userId);
 	}
+	
+	@CrossOrigin(origins = "*")
+	@PutMapping("/changeUserPass/{id}")
+	public User updateUserPassword(@PathVariable int id,@RequestBody ChangePassword changePassword) {
+		
+		System.out.println(id+" --");
+		User userObj = userServiceInmple.fetchByUserId(id);
+	
+		if(userObj.getUserPassword().equals(changePassword.getOldPassword())) {
+			
+			userObj.setUserPassword(changePassword.getNewPassword());
+		}
+		
+		else {
+			throw new ComplaintNotFoundException("Old Password Not Correct!!");
+		}
+		
+		userServiceInmple.changePassword(userObj);
+		return userObj;
+	}
 
 	
 	
