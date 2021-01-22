@@ -130,6 +130,20 @@ public class UserController {
 		return userObj;
 		
 	}
+
+
+	@CrossOrigin
+	@PostMapping("/contact-us")
+	public void userContactUs(@RequestBody ContactUs contactUs){
+		
+		userServiceInmple.userContactUs(contactUs);
+		System.out.println((contactUs));
+		sendEmailService.sendEmail(contactUs.geteMailId(),"Hello "+contactUs.getFirstName()+" "+contactUs.getLastName()+"\n\n"+contactUs.getMessageBody(), contactUs.getSubject());
+		//sendEmailService.sendEmail(contactUs.geteMailId(),"hiii","hyy");
+
+		
+			 
+	}
 	
 	
 }
