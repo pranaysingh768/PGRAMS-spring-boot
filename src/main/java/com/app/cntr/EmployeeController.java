@@ -61,3 +61,4 @@ public class EmployeeController {
 		 return employeeService.addDailyStatus(everyDayStatus);
 		 
 	}
+}    
