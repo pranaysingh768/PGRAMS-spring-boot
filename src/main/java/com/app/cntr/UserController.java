@@ -79,6 +79,41 @@ public class UserController {
 		
 		return userServiceInmple.findComplaint(userId);
 	}
+	
+	@CrossOrigin(origins = "*")
+	@PutMapping("/changeUserPass/{id}")
+	public User updateUserPassword(@PathVariable int id,@RequestBody ChangePassword changePassword) {
+		
+		System.out.println(id+" --");
+		User userObj = userServiceInmple.fetchByUserId(id);
+	
+		if(userObj.getUserPassword().equals(changePassword.getOldPassword())) {
+			
+			userObj.setUserPassword(changePassword.getNewPassword());
+		}
+		
+		else {
+			throw new ComplaintNotFoundException("Old Password Not Correct!!");
+		}
+		
+		userServiceInmple.changePassword(userObj);
+		return userObj;
+	}
+	
+	@CrossOrigin
+	@PostMapping("/send-mail")
+	public void sendEmailForgotPass(@RequestBody User user) {
+		
+		User userObj = authService.fetchByUserMail(user.getUserMail());
+		
+		String name=userObj.getUserName();
+		
+		this.mail = user.getUserMail();
+		
+		sendEmailService.sendEmail(this.mail,"Hello "+name+"\n\nPlease click below to reset your password for PGRAMS"  +"\n\nhttp://pgrams-frontend.s3-website-us-east-1.amazonaws.com/forgot-password-form"+"\n\nThank You", "PGRAMS - Reset Forgotten Password" + 
+				"");
+		
+	}
 
     @CrossOrigin
 	@PostMapping("/change-frogot-pass")
