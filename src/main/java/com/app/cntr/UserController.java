@@ -72,6 +72,14 @@ public class UserController {
 		return complaint;
 	}
 
+
+	@CrossOrigin
+	@GetMapping("/complaintList/{userId}")
+	public List<Complaint> getComplaints(@PathVariable int userId){
+		
+		return userServiceInmple.findComplaint(userId);
+	}
+
 	
 	
 }
