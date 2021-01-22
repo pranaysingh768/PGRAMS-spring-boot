@@ -31,4 +31,18 @@ public class UserServiceInmple {
 		
 		return complaintRepository.save(complaint);
 	}
+	
+	public Complaint findComplaintOnCID(int Id){
+		
+		Complaint complaint = complaintRepository.findByComplaintId(Id);
+		
+		Optional<Complaint> com = Optional.ofNullable(complaint);
+		
+		if(!com.isPresent()) {
+			
+			throw new ComplaintNotFoundException("Complaint id : "+Id+" is not exist");
+		}
+		
+		return complaint;
+	}
 }
