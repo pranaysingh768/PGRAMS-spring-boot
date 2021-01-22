@@ -80,6 +80,21 @@ public class UserController {
 		return userServiceInmple.findComplaint(userId);
 	}
 
+    @CrossOrigin
+	@PostMapping("/change-frogot-pass")
+	public User changeForgotPass(@RequestBody User user) {
+		
+		User userObj = authService.fetchByUserMail(this.mail);
+		
+		userObj.setUserPassword(user.getUserPassword());
+		
+		userServiceInmple.changePassword(userObj);
+		
+		this.mail="";
+		
+		return userObj;
+		
+	}
 	
 	
 }
