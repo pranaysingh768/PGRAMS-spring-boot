@@ -60,6 +60,17 @@ public class UserController {
 		
 		return userServiceInmple.addComplaint(complaint);
 	}
+	
+	@CrossOrigin
+	@GetMapping("/getOnCID/{cId}")
+	public Complaint getComplaintOnCID(@PathVariable int cId){
+			
+		Complaint complaint= userServiceInmple.findComplaintOnCID(cId);
+		
+		System.out.println(complaint.getComplaintId());
+		System.out.println(complaint.getComplaintTitle());
+		return complaint;
+	}
 
 	
 	
