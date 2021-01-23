@@ -26,6 +26,16 @@ public class UserServiceInmple {
 	
 	@Autowired
 	private ContactUsRepository contactUsRepository;
+	
+	public void checkComplaint(Complaint complaint) {
+		
+		Optional<Complaint> comOptional = Optional.ofNullable(complaint);
+		
+		if(!comOptional.isPresent()) {
+			
+			throw new ComplaintNotFoundException("Not allowed to access Complaint object, it contains null");
+		}
+	}
 
     	public Complaint addComplaint(Complaint complaint) {
 		
