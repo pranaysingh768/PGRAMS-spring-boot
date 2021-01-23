@@ -55,4 +55,56 @@ public class UserServiceInmple {
 		
 		return complaint;
 	}
+	
+	public List<Complaint> findComplaint(int userId){
+		
+		List<Complaint> complaintList = complaintRepository.findByUserId(userId);
+		
+		if(complaintList.isEmpty()) {
+			
+			throw new ComplaintNotFoundException("User id : "+userId+" is not exist");
+		}
+		
+		return complaintList;
+	}
+			
+	
+	public User fetchByUserId(int userId) {
+		
+		User user = userRepository.findByUserId(userId);
+		
+		Optional<User> userOpt = Optional.ofNullable(user);
+		
+		if(!userOpt.isPresent()) {
+			
+			throw new ComplaintNotFoundException("User id : "+userId+" is not exist");
+
+		}
+		
+		return user;
+		 
+	}
+	
+	public User changePassword(User user) {
+		
+		return userRepository.save(user);
+	}
+	
+	
+	public ContactUs userContactUs(ContactUs contactUs) {
+		
+		Optional<ContactUs> contactOptional = Optional.ofNullable(contactUs);
+		
+		if(!contactOptional.isPresent()) {
+			
+			throw new ComplaintNotFoundException("contact us Object May empty!!");
+		}
+		
+		return contactUsRepository.save(contactUs);
+	}
+	
+	
+	
+		
+
 }
