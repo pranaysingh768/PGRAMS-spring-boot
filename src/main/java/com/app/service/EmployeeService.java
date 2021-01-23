@@ -39,4 +39,46 @@ public class EmployeeService {
 		
 		return everyDayStatusRepository.save(everyDayStatus);
 	}
-}    
+	
+	
+	public List<EveryDayStatus> findAllStatusOnCid(int cId){
+		
+		List<EveryDayStatus> everyDayStatusList = everyDayStatusRepository.findBycomplaintId(cId);
+		
+		if(everyDayStatusList.isEmpty()) {
+			
+			throw new ComplaintNotFoundException("Complaint id : "+cId+" is not exist");
+		}
+		
+//		Optional<Complaint>  com = Optional.of(complaint);
+//		
+//		if(!com.isPresent()) {
+//			throw new ComplaintNotFoundException("Complaint id : "+cId+" is not exist");
+//		}
+		return everyDayStatusList;
+	
+	}
+	
+	public Complaint fetchById(int cId) {
+		
+		Complaint complaintObj = complaintRepository.findByComplaintId(cId);
+		Optional<Complaint>  complaintOpt = Optional.ofNullable(complaintObj);
+		
+		if(!complaintOpt.isPresent()) {
+			throw new ComplaintNotFoundException("Complaint id : "+cId+" is not exist");
+		}
+		
+		return complaintObj;
+	}
+	
+	public List<Complaint> findComplaintByEmpId(int empId,String str) {
+		
+		List<Complaint> complaintList = complaintRepository.findByEmployeeIdAndUserComplaintStatus(empId,str);
+
+		if(complaintList.isEmpty()) {
+			throw new ComplaintNotFoundException("Employee id : "+empId+" is not exist");
+		}
+		
+		return complaintList;
+	}
+}
