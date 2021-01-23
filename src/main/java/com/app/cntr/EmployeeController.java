@@ -61,4 +61,27 @@ public class EmployeeController {
 		 return employeeService.addDailyStatus(everyDayStatus);
 		 
 	}
+
+    @CrossOrigin
+	@GetMapping("/showStatus/{cId}")
+	public List<EveryDayStatus> getAllStatusOnCid(@PathVariable int cId){
+		
+		List<EveryDayStatus> everyDayStatusList = employeeService.findAllStatusOnCid(cId);
+		
+		return everyDayStatusList;
+	
+	}
+	
+	
+	@CrossOrigin
+	@GetMapping("/empComplaintList/{empId}")
+	public List<Complaint> getComplaints(@PathVariable int empId){
+		
+		List<Complaint> complaintList = employeeService.findComplaintByEmpId(empId,"Approved");
+		
+
+		return complaintList;
+	}
+
+
 }    
